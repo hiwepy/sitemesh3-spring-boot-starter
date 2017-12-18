@@ -1,0 +1,55 @@
+server:
+  port: 7900
+swagger: 
+  enabled: false
+  title: spring-boot-starter-swagger
+  description: Starter for swagger 2.x
+  version: 1.1.0.RELEASE
+  license: Apache License, Version 2.0
+  license-url: https://www.apache.org/licenses/LICENSE-2.0.html
+  terms-of-service-url: https://github.com/dyc87112/spring-boot-starter-swagger
+  base-package: com.didispace
+  contact:
+    name: didi
+    email: dyc87112@qq.com
+    url: http://blog.didispace.com
+  base-path:
+  - /**
+  exclude-path: 
+  - /error
+  - /ops/**
+  dockets: 
+    - groupName: API1
+      title: spring-boot-starter-swagger
+      description: Starter for swagger 2.x
+      version: 1.1.0.RELEASE
+      license: Apache License, Version 2.0
+      license-url: https://www.apache.org/licenses/LICENSE-2.0.html
+      terms-of-service-url: https://github.com/dyc87112/spring-boot-starter-swagger
+      base-package: com.didispace
+      contact:
+        name:  didi
+        email:  dyc87112@qq.com
+        url: http://blog.didispace.com
+      base-path: 
+      - /**
+      exclude-path:
+      - /error
+      - /ops/**
+    - groupName: API2
+      title: spring-boot-starter-swagger
+      description: Starter for swagger 2.x
+      version: 1.1.0.RELEASE
+      license: Apache License, Version 2.0
+      license-url: https://www.apache.org/licenses/LICENSE-2.0.html
+      terms-of-service-url: https://github.com/dyc87112/spring-boot-starter-swagger
+      base-package: com.didispace
+      contact:
+        name:  didi
+        email:  dyc87112@qq.com
+        url: http://blog.didispace.com
+      base-path: 
+      - /**
+      exclude-path:
+      - /error
+      - /ops/**   
