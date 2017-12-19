@@ -9,15 +9,18 @@ import org.sitemesh.webapp.SiteMeshFilter;
 import org.sitemesh.webapp.WebAppContext;
 import org.sitemesh.webapp.contentfilter.ResponseMetaData;
 import org.sitemesh.webapp.contentfilter.Selector;
+import org.springframework.web.servlet.ViewResolver;
 
-public class SpringBootSiteMeshFilter extends SiteMeshFilter {
+public class SpringBootViewSiteMeshFilter extends SiteMeshFilter {
 
+	private final ViewResolver viewResolver;
 	private final ContentProcessor contentProcessor;
 	private final boolean includeErrorPages;
 
-	public SpringBootSiteMeshFilter(Selector selector, ContentProcessor contentProcessor,
+	public SpringBootViewSiteMeshFilter(ViewResolver viewResolver, Selector selector, ContentProcessor contentProcessor,
 			DecoratorSelector<WebAppContext> decoratorSelector, boolean includeErrorPages) {
 		super(selector, contentProcessor, decoratorSelector, includeErrorPages);
+		this.viewResolver = viewResolver;
 		this.contentProcessor = contentProcessor;
 		this.includeErrorPages = includeErrorPages;
 	}
@@ -28,7 +31,7 @@ public class SpringBootSiteMeshFilter extends SiteMeshFilter {
 	 */
 	protected WebAppContext createContext(String contentType, HttpServletRequest request, HttpServletResponse response,
 			ResponseMetaData metaData) {
-		return new SpringBootContext( contentType, request, response, request.getServletContext(),
+		return new SpringBootViewContext(viewResolver, contentType, request, response, request.getServletContext(),
 				contentProcessor, metaData, includeErrorPages);
 	}
 

@@ -15,6 +15,11 @@
  */
 package org.sitemesh.spring.boot;
 
-public class D {
+public class Sitemesh3Param {
+
+	public static final String PARAM_AUTORELOAD_KEY = "autoReload";
+	public static final String PARAM_CONFIGFILE_KEY = "configFile";
+	public static final String PARAM_PARAMNAME_KEY = "paramName";
+	public static final String PARAM_LAYOUTFILE_KEY = "layoutFile";
 
 }
