@@ -2,7 +2,9 @@ package org.sitemesh.spring.boot.ext.config;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -22,10 +24,12 @@ import org.sitemesh.config.xml.XmlFilterConfigurator;
 import org.sitemesh.spring.boot.Sitemesh3Properties;
 import org.sitemesh.spring.boot.ext.builder.SpringBootSiteMeshFilterBuilder;
 import org.sitemesh.spring.boot.ext.config.selector.ParamDecoratorSelector;
+import org.sitemesh.spring.boot.utils.StringUtils;
 import org.sitemesh.webapp.WebAppContext;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.servlet.ViewResolver;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -61,7 +65,20 @@ public class ParamConfigurableSiteMeshFilter extends ConfigurableSiteMeshFilter 
 	}
 
 	protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
-		super.applyCustomConfiguration(builder);
+		
+		// 优先初始化Spring Boot配置文件中的装饰映射配置
+		if (!CollectionUtils.isEmpty(properties.getMapping())) {
+
+			Iterator<Entry<String, String>> ite = properties.getMapping().entrySet().iterator();
+			while (ite.hasNext()) {
+				Entry<String, String> entry = ite.next();
+				if (StringUtils.hasText(entry.getValue())) {
+					String contentPath = StringUtils.hasText(entry.getKey()) ? entry.getKey() : "/*";
+					builder.addDecoratorPaths(contentPath, StringUtils.tokenizeToStringArray(entry.getValue()));
+				}
+			}
+		}
+		
 		// 扩展参数指定布局文件
 		if (properties.isParamLayout()) {
 			// 获取原有默认配置装饰选择器
@@ -69,13 +86,20 @@ public class ParamConfigurableSiteMeshFilter extends ConfigurableSiteMeshFilter 
 			// 赋给自定义装饰选择器，则自定义规则未匹配时调用默认选择器获取
 			builder.setCustomDecoratorSelector(new ParamDecoratorSelector(filterConfig, defaultDecoratorSelector));
 		}
+		
+		super.applyCustomConfiguration(builder);
 	}
 
 	protected Filter setup() throws ServletException {
 
 		ObjectFactory objectFactory = getObjectFactory();
 		SpringBootSiteMeshFilterBuilder builder = new SpringBootSiteMeshFilterBuilder();
-
+		
+		configProperties.put(PropertiesFilterConfigurator.EXCLUDE_PARAM, properties.getExclude());
+		configProperties.put(PropertiesFilterConfigurator.MIME_TYPES_PARAM, properties.getMimeTypes());
+		configProperties.put(PropertiesFilterConfigurator.INCLUDE_ERROR_PAGES_PARAM, Boolean.toString(properties.isIncludeErrorPages()));
+		configProperties.put(PropertiesFilterConfigurator.DECORATOR_SELECTOR, properties.getDecoratorSelector());
+		
 		new PropertiesFilterConfigurator(objectFactory, configProperties).configureFilter(builder);
 
 		new XmlFilterConfigurator(getObjectFactory(), loadConfigXml(filterConfig, getConfigFileName()))

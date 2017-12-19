@@ -1,5 +1,8 @@
 package org.sitemesh.spring.boot;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 
@@ -24,7 +27,23 @@ public class Sitemesh3Properties {
 	protected String layoutFile = "classpath:templates/layout/%s.ftl";
 	/** 视图解析器名称 */
 	protected String viewResolver = "viewResolver";
-	
+	/** Add a path to be excluded by SiteMesh. */
+    protected String exclude = null;
+    /** 
+     * Set MIME types that the Filter should intercept. The default is {"text/html"}. 
+	 * Note: The MIME types are ignored if setCustomSelector(Selector) is called.
+     */
+    protected String mimeTypes = "mimeTypes";
+    /** Set if the error pages should be decorated as well. The default is false.  */
+    protected boolean includeErrorPages = false;
+    /** 
+     * Set a custom DecoratorSelector. If called and decorator selector is not instance of PathBasedDecoratorSelector, 
+     *  this will override any paths added with addDecoratorPath(String, String) and instead delegate to the custom DecoratorSelector.
+     */
+    protected String decoratorSelector = null;
+    /** 装饰规则 */
+    protected Map<String /* path */, String /* decorator */> mapping = new LinkedHashMap<String, String>();
+    
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -87,6 +106,46 @@ public class Sitemesh3Properties {
 
 	public void setViewResolver(String viewResolver) {
 		this.viewResolver = viewResolver;
+	}
+
+	public String getExclude() {
+		return exclude;
+	}
+
+	public void setExclude(String exclude) {
+		this.exclude = exclude;
+	}
+
+	public String getMimeTypes() {
+		return mimeTypes;
+	}
+
+	public void setMimeTypes(String mimeTypes) {
+		this.mimeTypes = mimeTypes;
+	}
+
+	public boolean isIncludeErrorPages() {
+		return includeErrorPages;
+	}
+
+	public void setIncludeErrorPages(boolean includeErrorPages) {
+		this.includeErrorPages = includeErrorPages;
+	}
+
+	public String getDecoratorSelector() {
+		return decoratorSelector;
+	}
+
+	public void setDecoratorSelector(String decoratorSelector) {
+		this.decoratorSelector = decoratorSelector;
+	}
+
+	public Map<String, String> getMapping() {
+		return mapping;
+	}
+
+	public void setMapping(Map<String, String> mapping) {
+		this.mapping = mapping;
 	}
 
 }

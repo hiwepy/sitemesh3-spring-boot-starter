@@ -2,6 +2,7 @@ package org.sitemesh.spring.boot;
 
 import org.sitemesh.SiteMeshContext;
 import org.sitemesh.spring.boot.ext.config.ParamConfigurableSiteMeshFilter;
+import org.sitemesh.spring.boot.utils.StringUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -33,7 +34,7 @@ public class Sitemesh3AutoConfiguration implements ApplicationContextAware {
 			
 		registrationBean.setFilter(new ParamConfigurableSiteMeshFilter(getApplicationContext(), properties));
 		// 设置初始参数
-		registrationBean.addUrlPatterns(properties.getUrlPatterns());
+		registrationBean.addUrlPatterns(StringUtils.tokenizeToStringArray(properties.getUrlPatterns()));
 		// 用于获取装饰器名称参数的取值Key
 		registrationBean.addInitParameter(Sitemesh3Param.PARAM_PARAMNAME_KEY, properties.getParamName());
 		// 不同参数对应的装饰页信息
