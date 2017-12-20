@@ -27,6 +27,7 @@ import org.sitemesh.spring.boot.ext.config.selector.ParamDecoratorSelector;
 import org.sitemesh.spring.boot.utils.StringUtils;
 import org.sitemesh.webapp.WebAppContext;
 import org.springframework.context.ApplicationContext;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.util.CollectionUtils;
@@ -54,7 +55,8 @@ public class ParamConfigurableSiteMeshFilter extends ConfigurableSiteMeshFilter 
 
 	private ApplicationContext applicationContext;
 	private Sitemesh3Properties properties;
-
+	private Resource xmlConfigResource;
+	
 	public ParamConfigurableSiteMeshFilter(ApplicationContext applicationContext, Sitemesh3Properties properties) {
 		this.applicationContext = applicationContext;
 		this.properties = properties;
@@ -116,7 +118,6 @@ public class ParamConfigurableSiteMeshFilter extends ConfigurableSiteMeshFilter 
 		}
 		
 	}
-	
 
 	@Override
 	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
@@ -129,6 +130,15 @@ public class ParamConfigurableSiteMeshFilter extends ConfigurableSiteMeshFilter 
 		super.doFilter(servletRequest, servletResponse, filterChain);
 	}
 
+	@Override
+	protected boolean reloadRequired() {
+		try {
+			return xmlConfigResource != null && timestampOfXmlFileAtLastLoad != xmlConfigResource.lastModified();
+		} catch (IOException e) {
+			return false;
+		}
+	}
+	
 	/**
 	 * Load the XML config file. Will try a number of locations until it finds the
 	 * file.
@@ -136,7 +146,7 @@ public class ParamConfigurableSiteMeshFilter extends ConfigurableSiteMeshFilter 
 	 * <pre>
 	 * - Will first search for a file on disk relative to the root of the web-app.
 	 * - Then a file with the absolute path.
-	 * - Then a file as a resource in the ServletContext (allowing for files embedded in a .war file).
+	 * - Then a file as a resource in the classpath.
 	 * - If none of those find the file, null will be returned.
 	 * </pre>
 	 */
@@ -146,25 +156,27 @@ public class ParamConfigurableSiteMeshFilter extends ConfigurableSiteMeshFilter 
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder documentBuilder = factory.newDocumentBuilder();
 
-			xmlConfigFile = resolver.getResource(configFilePath).getFile();
-			if (xmlConfigFile.canRead()) {
+			xmlConfigResource = resolver.getResource(configFilePath);
+			if (xmlConfigResource != null && xmlConfigResource.exists()) {
+				timestampOfXmlFileAtLastLoad = xmlConfigResource.lastModified();
 				try {
-					timestampOfXmlFileAtLastLoad = xmlConfigFile.lastModified();
+					xmlConfigFile = xmlConfigResource.getFile();
 					LOG.config("Loading SiteMesh 3 config file: " + xmlConfigFile.getAbsolutePath());
 					Document document = documentBuilder.parse(xmlConfigFile);
 					return document.getDocumentElement();
 				} catch (SAXException e) {
 					throw new ServletException("Could not parse " + xmlConfigFile.getAbsolutePath(), e);
 				}
-			} else {
-				InputStream stream = resolver.getResource(configFilePath).getInputStream();
+			} else if ( xmlConfigResource != null && xmlConfigResource.isReadable()) {
+				
+				timestampOfXmlFileAtLastLoad = xmlConfigResource.lastModified();
+				InputStream stream = xmlConfigResource.getInputStream();
 				if (stream == null) {
-					LOG.config("No config file present - using defaults and init-params. Tried: "
-							+ xmlConfigFile.getAbsolutePath() + " and ServletContext:" + configFilePath);
+					LOG.config("No config file present - using defaults and init-params. Tried: ServletContext:" + configFilePath);
 					return null;
 				}
 				try {
-					LOG.config("Loading SiteMesh 3 config file from ServletContext " + configFilePath);
+					LOG.config("Loading SiteMesh 3 config file from Classpath: " + configFilePath);
 					Document document = documentBuilder.parse(stream);
 					return document.getDocumentElement();
 				} catch (SAXException e) {
@@ -173,7 +185,7 @@ public class ParamConfigurableSiteMeshFilter extends ConfigurableSiteMeshFilter 
 					stream.close();
 				}
 			}
-
+			return null;
 		} catch (IOException e) {
 			throw new ServletException(e);
 		} catch (ParserConfigurationException e) {
