@@ -3,15 +3,11 @@ package org.sitemesh.spring.boot.ext.config;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.servlet.Filter;
-import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -117,17 +113,6 @@ public class ParamConfigurableSiteMeshFilter extends ConfigurableSiteMeshFilter 
 			return builder.create();
 		}
 		
-	}
-
-	@Override
-	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
-			throws IOException, ServletException {
-		// 将前端参数全部传递到下一步请求
-		Map<String, String[]> params = servletRequest.getParameterMap();
-		for (String key : params.keySet()) {
-			servletRequest.setAttribute(key, params.get(key));
-		}
-		super.doFilter(servletRequest, servletResponse, filterChain);
 	}
 
 	@Override
