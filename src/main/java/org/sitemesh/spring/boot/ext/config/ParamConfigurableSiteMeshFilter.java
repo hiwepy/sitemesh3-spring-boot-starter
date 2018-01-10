@@ -142,17 +142,7 @@ public class ParamConfigurableSiteMeshFilter extends ConfigurableSiteMeshFilter 
 			DocumentBuilder documentBuilder = factory.newDocumentBuilder();
 
 			xmlConfigResource = resolver.getResource(configFilePath);
-			if (xmlConfigResource != null && xmlConfigResource.exists()) {
-				timestampOfXmlFileAtLastLoad = xmlConfigResource.lastModified();
-				try {
-					xmlConfigFile = xmlConfigResource.getFile();
-					LOG.config("Loading SiteMesh 3 config file: " + xmlConfigFile.getAbsolutePath());
-					Document document = documentBuilder.parse(xmlConfigFile);
-					return document.getDocumentElement();
-				} catch (SAXException e) {
-					throw new ServletException("Could not parse " + xmlConfigFile.getAbsolutePath(), e);
-				}
-			} else if ( xmlConfigResource != null && xmlConfigResource.isReadable()) {
+			if ( xmlConfigResource != null && xmlConfigResource.isReadable()) {
 				
 				timestampOfXmlFileAtLastLoad = xmlConfigResource.lastModified();
 				InputStream stream = xmlConfigResource.getInputStream();
