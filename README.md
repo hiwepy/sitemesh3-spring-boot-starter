@@ -18,6 +18,6 @@
 </dependency>
 ```
 
-### Simple ： 
+### Sample ： 
 
-[https://github.com/vindell/spring-boot-starter-samples/tree/master/spring-boot-simple-sitemesh3](https://github.com/vindell/spring-boot-starter-samples/tree/master/spring-boot-simple-sitemesh3 "spring-boot-simple-sitemesh3")
+[https://github.com/vindell/spring-boot-starter-samples/tree/master/spring-boot-sample-sitemesh3](https://github.com/vindell/spring-boot-starter-samples/tree/master/spring-boot-sample-sitemesh3 "spring-boot-sample-sitemesh3")
