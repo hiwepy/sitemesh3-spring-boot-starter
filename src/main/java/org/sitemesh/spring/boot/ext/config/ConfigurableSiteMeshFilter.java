@@ -116,8 +116,8 @@ import org.xml.sax.SAXException;
  * have a default constructor.</p>
  *
  * @author Joe Walnes
- * @author wandalong
- * @desc 基于java的配置必须编写一个过滤器，继承org.sitemesh.config.ConfigurableSiteMeshFilter 且重载applyCustomConfiguration方法;
+ * @author vindell
+ * 基于java的配置必须编写一个过滤器，继承org.sitemesh.config.ConfigurableSiteMeshFilter 且重载applyCustomConfiguration方法;
  * 如果xml和java两个配置方法共用，sitemesh3在调用applyCustomConfiguration()方法前会先加载xml的配置。
  * @see PropertiesFilterConfigurator
  */
