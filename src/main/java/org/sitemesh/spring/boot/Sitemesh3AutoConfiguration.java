@@ -28,9 +28,9 @@ public class Sitemesh3AutoConfiguration implements ApplicationContextAware {
 	private ApplicationContext applicationContext;
 
 	@Bean
-	public FilterRegistrationBean siteMeshFilter(Sitemesh3Properties properties) {
+	public FilterRegistrationBean<ParamConfigurableSiteMeshFilter> siteMeshFilter(Sitemesh3Properties properties) {
 
-		FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+		FilterRegistrationBean<ParamConfigurableSiteMeshFilter> registrationBean = new FilterRegistrationBean<ParamConfigurableSiteMeshFilter>();
 			
 		registrationBean.setFilter(new ParamConfigurableSiteMeshFilter(getApplicationContext(), properties));
 		// 设置初始参数
