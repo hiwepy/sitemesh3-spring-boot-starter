@@ -22,7 +22,7 @@ public class SpringBootSiteMeshFilter extends SiteMeshFilter {
 		this.includeErrorPages = includeErrorPages;
 	}
 
-	/**
+	/*
 	 * Create a context for the current request. This method can be overriden to
 	 * allow for other types of context.
 	 */

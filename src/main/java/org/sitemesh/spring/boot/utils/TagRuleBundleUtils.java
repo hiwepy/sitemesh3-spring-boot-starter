@@ -99,7 +99,7 @@ public abstract class TagRuleBundleUtils {
 		return resultIterable;
 	}
 	
-	/**
+	/*
 	 * 获取类似body.div[id='222'] 当前节点下的指定根节点
 	 */
 	public static ContentProperty getTargetProperty(ContentProperty property, String rootPath) {

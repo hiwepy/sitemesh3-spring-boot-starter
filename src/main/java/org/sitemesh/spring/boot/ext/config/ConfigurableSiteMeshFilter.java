@@ -195,6 +195,8 @@ public class ConfigurableSiteMeshFilter  implements Filter {
      *
      * <p>This implementation simply reads them from the Filter's {@code <init-param>}s in {@code web.xml}.
      * To read from another place, override this.</p>
+     * @param filterConfig {@link FilterConfig} instance
+     * @return initParams
      */
     protected Map<String, String> getConfigProperties(FilterConfig filterConfig) {
         Map<String, String> initParams = new HashMap<String, String>();
@@ -222,7 +224,7 @@ public class ConfigurableSiteMeshFilter  implements Filter {
         return builder.create();
     }
 
-    /**
+    /*
      * Override this to apply custom configuration after after the default configuration mechanisms.
      */
     protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
@@ -241,14 +243,14 @@ public class ConfigurableSiteMeshFilter  implements Filter {
 	           .addExcludedPath("/brochures/*"); */ 
     }
 
-    /**
+    /*
      * Determine if a reload is required. Override this to change the behavior.
      */
     protected boolean reloadRequired() {
         return timestampOfXmlFileAtLastLoad != xmlConfigFile.lastModified();
     }
 
-    /**
+    /*
      * Whether the config file should be monitored for changes and automatically reloaded.
      */
     protected boolean getAutoReload() {
@@ -261,7 +263,7 @@ public class ConfigurableSiteMeshFilter  implements Filter {
         }
     }
 
-    /**
+    /*
      * Gets the SiteMesh XML config file name.
      * Looks for a 'config' property in the Filter init-params. 
      * If not found, defaults to '/WEB-INF/sitemesh3.xml'.
@@ -278,7 +280,7 @@ public class ConfigurableSiteMeshFilter  implements Filter {
         return new ObjectFactory.Default();
     }
 
-    /**
+    /*
      * Load the XML config file. Will try a number of locations until it finds the file.
      * <pre>
      * - Will first search for a file on disk relative to the root of the web-app.

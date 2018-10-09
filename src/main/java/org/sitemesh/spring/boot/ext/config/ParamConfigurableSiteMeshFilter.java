@@ -33,12 +33,7 @@ import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 /**
- * 
- * @className ： ParamConfigurableSiteMeshFilter
- * @description ： 扩展实现注入基于request参数decorator值进行动态定位装饰器的选择器
- * @author ： <a href="https://github.com/vindell">vindell</a>
- * @date ： 2017年12月18日 下午8:33:38
- * @version V1.0
+ * 扩展实现注入基于request参数decorator值进行动态定位装饰器的选择器
  */
 public class ParamConfigurableSiteMeshFilter extends ConfigurableSiteMeshFilter {
 
@@ -124,7 +119,7 @@ public class ParamConfigurableSiteMeshFilter extends ConfigurableSiteMeshFilter 
 		}
 	}
 	
-	/**
+	/*
 	 * Load the XML config file. Will try a number of locations until it finds the
 	 * file.
 	 * 

@@ -7,8 +7,7 @@ import org.sitemesh.content.tagrules.html.ExportTagToContentRule;
 import org.sitemesh.tagprocessor.State;
 /**
  * 
- * @className	： ExtendHtmlTagRuleBundle
- * @description	： 扩展sitemash标签规则支持
+ * 扩展sitemash标签规则支持
  * <pre>
  *  在BaseSiteMeshBuilder对象的setupDefaults可见如下代码：
  *  protected void setupDefaults() {
@@ -18,8 +17,6 @@ import org.sitemesh.tagprocessor.State;
  *  Sitemesh 3 默认只提供了 head,title,body,meta 等 tag 类型，我们可以通过实现 TagRuleBundle 扩展自定义的 tag 规则
  * </pre> 
  * @author 		： <a href="https://github.com/vindell">vindell</a>
- * @date		： 2017年12月18日 下午8:40:22
- * @version 	V1.0
  * @see	org.sitemesh.content.tagrules.html.CoreHtmlTagRuleBundle
  */
 public class ExtendHtmlTagRuleBundle implements TagRuleBundle {

@@ -12,12 +12,7 @@ import org.sitemesh.webapp.WebAppContext;
 import org.springframework.util.StringUtils;
  	
 /**
- * 
- * @className	： ParamDecoratorSelector
- * @description	： 基于request参数decorator值进行动态定位装饰器的选择器;
- * @author 		： <a href="https://github.com/vindell">vindell</a>
- * @date		： 2017年12月18日 下午8:41:05
- * @version 	V1.0
+ * 基于request参数decorator值进行动态定位装饰器的选择器;
  */
 public class ParamDecoratorSelector extends PathBasedDecoratorSelector<WebAppContext> {
  
@@ -47,7 +42,7 @@ public class ParamDecoratorSelector extends PathBasedDecoratorSelector<WebAppCon
         return defaultDecoratorSelector.selectDecoratorPaths(content, context);
     }
     
-	/**
+	/*
 	 * Make the name of this filter available to subclasses.
 	 * Analogous to GenericServlet's <code>getServletName()</code>.
 	 * <p>Takes the FilterConfig's filter name by default.

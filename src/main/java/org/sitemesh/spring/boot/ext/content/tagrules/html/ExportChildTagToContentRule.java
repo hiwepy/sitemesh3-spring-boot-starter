@@ -5,7 +5,6 @@ import java.util.Iterator;
 
 import org.sitemesh.SiteMeshContext;
 import org.sitemesh.content.ContentProperty;
-import org.sitemesh.content.tagrules.html.ExportTagToContentRule;
 import org.sitemesh.spring.boot.ext.content.ChildrenContentProperty;
 import org.sitemesh.tagprocessor.BasicBlockRule;
 import org.sitemesh.tagprocessor.Tag;
@@ -17,11 +16,10 @@ public class ExportChildTagToContentRule extends BasicBlockRule<Object> {
 	protected final boolean includeInContent;
 	protected final SiteMeshContext context;
 
-    /**
+    /*
      * @param targetProperty   ContentProperty to export tag contents to.
      * @param includeInContent Whether the tag should be included in the content (if false, it will be stripped
      *                         from the current ContentProperty that is being written to.
-     * @see ExportTagToContentRule
      */
     public ExportChildTagToContentRule(SiteMeshContext context, ChildrenContentProperty targetProperty, boolean includeInContent) {
         this.targetProperty = targetProperty;

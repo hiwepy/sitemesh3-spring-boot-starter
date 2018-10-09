@@ -6,12 +6,7 @@ import org.sitemesh.content.tagrules.TagRuleBundle;
 import org.sitemesh.tagprocessor.State;
 
 /**
- * 
- * @className	： ExtendDecoratorTagRuleBundle
- * @description	： {@code <sitemesh:children property='body:script'/>}
- * @author 		： <a href="https://github.com/vindell">vindell</a>
- * @date		： 2017年12月18日 下午8:38:00
- * @version 	V1.0
+ * {@code <sitemesh:children property='body:script'/>}
  */
 public class ExtendDecoratorTagRuleBundle implements TagRuleBundle {
 

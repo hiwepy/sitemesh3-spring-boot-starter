@@ -12,11 +12,6 @@ import org.sitemesh.tagprocessor.Tag;
 
 /**
  * 
- * @className	： SiteMeshScriptRule
- * @description	： TODO(描述这个类的作用)
- * @author 		： <a href="https://github.com/vindell">vindell</a>
- * @date		： 2017年12月18日 下午8:39:23
- * @version 	V1.0
  * @see	org.sitemesh.content.tagrules.html.MetaTagRule
  */
 public class SiteMeshScriptRule extends BasicBlockRule<String>{

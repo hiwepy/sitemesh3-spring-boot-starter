@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ViewResolver;
 
 public class SpringBootSiteMeshFilterBuilder extends SiteMeshFilterBuilder {
 
-	/**
+	/*
 	 * Create the SiteMesh Filter.
 	 */
 	public Filter create() {
@@ -20,7 +20,7 @@ public class SpringBootSiteMeshFilterBuilder extends SiteMeshFilterBuilder {
 				isIncludeErrorPages());
 	}
 
-	/**
+	/*
 	 * Create the SiteMesh Filter.
 	 */
 	public Filter create(ViewResolver viewResolver) {

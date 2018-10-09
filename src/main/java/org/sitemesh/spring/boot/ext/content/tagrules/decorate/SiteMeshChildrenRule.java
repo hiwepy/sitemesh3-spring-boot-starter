@@ -12,11 +12,7 @@ import org.sitemesh.tagprocessor.Tag;
 
 /**
  * 
- * @className	： SiteMeshChildrenRule
- * @description	： 替换 {@code <sitemesh:children property='script'/>} 此类标签为  {@link ContentProperty} 合并到当前文档后的内容,标签自身内的内容将被丢弃.
- * @author 		： <a href="https://github.com/vindell">vindell</a>
- * @date		： 2017年12月18日 下午8:38:29
- * @version 	V1.0
+ * 替换 {@code <sitemesh:children property='script'/>} 此类标签为  {@link ContentProperty} 合并到当前文档后的内容,标签自身内的内容将被丢弃.
  * @see org.sitemesh.content.tagrules.decorate.SiteMeshWriteRule
  * @see SiteMeshContext#getContentToMerge()
  */
