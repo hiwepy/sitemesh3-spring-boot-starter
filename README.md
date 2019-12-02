@@ -1,4 +1,4 @@
-# spring-boot-starter-sitemesh3
+# sitemesh3-spring-boot-starter
 
 
 ### 说明
@@ -13,7 +13,7 @@
 ``` xml
 <dependency>
 	<groupId>${project.groupId}</groupId>
-	<artifactId>spring-boot-starter-sitemesh3</artifactId>
+	<artifactId>sitemesh3-spring-boot-starter</artifactId>
 	<version>${project.version}</version>
 </dependency>
 ```
