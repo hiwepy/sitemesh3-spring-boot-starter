@@ -14,7 +14,7 @@
 <dependency>
 	<groupId>${project.groupId}</groupId>
 	<artifactId>sitemesh3-spring-boot-starter</artifactId>
-	<version>${project.version}</version>
+	<version>1.0.0.RELEASE</version>
 </dependency>
 ```
 
